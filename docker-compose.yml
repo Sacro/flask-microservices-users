@@ -1,6 +1,18 @@
 version: '2.1'
 
 services:
+  nginx:
+    container_name: nginx
+    build: ./nginx/
+    restart: always
+    ports:
+      - 8080:80
+    depends_on:
+      users-service:
+        condition: service_started
+    links:
+      - users-service
+
   users-db:
     container_name: users-db
     build: ./project/db
